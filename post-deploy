@@ -1,0 +1,40 @@
+#!/bin/bash -e
+
+PATH=/bin:/usr/bin
+base=/home/ragnar/travis-test
+current="$base/current"
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 <stamp>"
+  exit 1
+fi
+
+stamp="$1"
+
+if ! [[ $stamp =~ ^[0-9-]+$ ]]; then
+  echo "$stamp: Invalid format."
+  exit 1
+fi
+
+new="$base/$stamp"
+
+if [ ! -d "$new" ]; then
+  echo "$new: Not a directory."
+  exit 1
+fi
+
+files_src="$base/files"
+files_dst="$new/files"
+
+ln -sfT "$files_src" "$files_dst"
+ln -sfT "$new" "$current"
+
+find \
+	"$base" \
+	-mindepth 1 \
+	-maxdepth 1 \
+	-regextype posix-extended \
+	-regex '.*/[0-9]+-[0-9]+' \
+| sort \
+| head -n -10 \
+| xargs -r rm -rf
