@@ -1,2 +1,4 @@
 language: c
+install: make gcc
 script: make && make test
+compiler: gcc
