@@ -1,8 +1,8 @@
 BIN = bin/binary
 SRC = source.c
-SRC = "$(TRAVIS_BUILD_DIR)/bin"
 STAMP = "$(shell date +'%Y%m%d-%H%M%S')"
-DST = "ragnar@delfiin.waalaskala.com:/home/ragnar/travis-test/$(STAMP)"
+DEPLOY_SRC = "$(TRAVIS_BUILD_DIR)/bin"
+DEPLOY_DST = "ragnar@delfiin.waalaskala.com:/home/ragnar/travis-test/$(STAMP)"
 
 
 $(BIN): $(SRC)
@@ -19,5 +19,5 @@ deploy:
 		-r \
 		--delete-after \
 		--quiet \
-		$(SRC) \
-		$(DST)
+		$(DEPLOY_SRC) \
+		$(DEPLOY_DST)
