@@ -1,4 +1,4 @@
-BIN = binary
+BIN = bin/binary
 SRC = source.c
 
 $(BIN): $(SRC)
